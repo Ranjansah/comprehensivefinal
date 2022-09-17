@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  database12 :
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=7tM5NLOKJ1#3127
+      - MYSQL_DATABASE=db
+    ports:
+      - 1433:1433
+      
+  spring-boot:
+    depends_on:
+      - database12
+    restart: always
+    build: .
+    ports:
+      - 8099:8080
+    environment:
+     - jdbc:sqlserver://ranjansah10.database.windows.net:1433;database=db;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    
